@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lo que dice la ley</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap');
+
+:root{
+  --bg:#12141c;
+  --panel:#1a1e2b;
+  --panel2:#20263a;
+  --yellow:#f4c430;
+  --red:#e2402f;
+  --blue3:#4a90d9;
+  --purple3:#a374db;
+  --ink:#f2f1ec;
+  --sub:#98a0b8;
+  --line:#33394d;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Source Sans 3', -apple-system, sans-serif;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+.stage{
+  width:100%;
+  max-width:520px;
+}
+
+/* ---- hazard header stripe ---- */
+.stripe{
+  height:10px;
+  width:100%;
+  background:repeating-linear-gradient(135deg, var(--yellow) 0 18px, #1a1e2b 18px 36px);
+  border-radius:6px 6px 0 0;
+}
+
+.card{
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-top:none;
+  border-radius:0 0 14px 14px;
+  display:flex;
+  flex-direction:column;
+}
+
+.top{
+  padding:22px 26px 0 26px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-shrink:0;
+}
+.eyebrow{
+  font-family:'Oswald',sans-serif;
+  font-size:12px;
+  letter-spacing:.14em;
+  color:var(--yellow);
+  font-weight:600;
+}
+.counter{
+  font-size:12px;
+  color:var(--sub);
+  font-variant-numeric:tabular-nums;
+}
+
+.body{
+  flex:1;
+  padding:18px 26px 10px 26px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.icon-wrap{
+  width:64px;height:64px;
+  border-radius:12px;
+  background:var(--panel2);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--line);
+  flex-shrink:0;
+}
+.icon-wrap svg{width:32px;height:32px;stroke:var(--yellow);fill:none;stroke-width:1.6;}
+
+h1{
+  font-family:'Oswald',sans-serif;
+  font-size:24px;
+  line-height:1.15;
+  margin:0;
+  font-weight:600;
+  letter-spacing:.01em;
+}
+.qh1{
+  font-size:17px;
+  line-height:1.35;
+  font-weight:500;
+  text-align:justify;
+}
+
+.intro-body{
+  justify-content:center;
+}
+.intro-p{
+  font-size:16px;
+  line-height:1.55;
+  color:var(--ink);
+  margin:0;
+  text-align:justify;
+}
+.intro-objective{
+  color:var(--yellow);
+  font-weight:600;
+}
+.intro-duration{
+  color:var(--sub);
+  font-style:italic;
+  font-size:14px;
+}
+.intro-tag{
+  text-align:center;
+  font-family:'Oswald',sans-serif;
+  font-size:11px;
+  letter-spacing:.12em;
+  color:var(--sub);
+  margin:6px 0 0 0;
+}
+
+.block{
+  border-radius:10px;
+  padding:14px 16px;
+  border:1px solid var(--line);
+}
+.block-law{
+  background:linear-gradient(180deg, rgba(244,196,48,.08), rgba(244,196,48,.02));
+  border-color:rgba(244,196,48,.35);
+}
+.block-ban{
+  background:linear-gradient(180deg, rgba(226,64,47,.09), rgba(226,64,47,.02));
+  border-color:rgba(226,64,47,.35);
+}
+.block-owncode{
+  background:linear-gradient(180deg, rgba(74,144,217,.10), rgba(74,144,217,.02));
+  border-color:rgba(74,144,217,.4);
+}
+.block-value{
+  background:linear-gradient(180deg, rgba(163,116,219,.10), rgba(163,116,219,.02));
+  border-color:rgba(163,116,219,.4);
+}
+.block-label{
+  font-family:'Oswald',sans-serif;
+  font-size:11px;
+  letter-spacing:.1em;
+  margin-bottom:6px;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+.block-law .block-label{color:var(--yellow);}
+.block-ban .block-label{color:var(--red);}
+.block-owncode .block-label{color:var(--blue3);}
+.block-value .block-label{color:var(--purple3);}
+.block p{
+  margin:0;
+  font-size:14.5px;
+  line-height:1.5;
+  color:var(--ink);
+  text-align:justify;
+}
+.cite{
+  display:block;
+  margin-top:8px;
+  font-size:12px;
+  color:var(--sub);
+  font-style:italic;
+}
+.multi-quote{
+  margin:0 0 14px 0;
+  text-align:justify;
+}
+.multi-quote:last-child{
+  margin-bottom:0;
+}
+.fine-note{
+  font-size:11.5px;
+  line-height:1.5;
+  color:var(--sub);
+  border-top:1px solid var(--line);
+  padding-top:10px;
+  margin:4px 0 0 0;
+  text-align:justify;
+}
+.caso-options{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+.caso-option{
+  font-size:14px;
+  line-height:1.4;
+  padding:8px 10px;
+  border-radius:8px;
+  background:var(--panel2);
+  border:1px solid var(--line);
+  text-align:justify;
+}
+.caso-option.correct{
+  background:rgba(120,190,110,.14);
+  border-color:#78be6e;
+}
+.caso-cierre{
+  text-align:center;
+  font-family:'Oswald',sans-serif;
+  font-size:15px;
+  font-weight:600;
+  letter-spacing:.02em;
+  line-height:1.6;
+  color:var(--yellow);
+  margin:6px 0 0 0;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px 22px 22px 22px;
+  gap:10px;
+  flex-shrink:0;
+  position:sticky;
+  bottom:0;
+  background:var(--panel);
+  border-top:1px solid var(--line);
+  box-shadow:0 -8px 16px -8px rgba(0,0,0,.4);
+}
+button.navbtn{
+  font-family:'Oswald',sans-serif;
+  font-size:13px;
+  letter-spacing:.06em;
+  font-weight:600;
+  background:var(--panel2);
+  color:var(--ink);
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:11px 18px;
+  cursor:pointer;
+  transition:background .15s ease, transform .1s ease;
+}
+button.navbtn:hover{background:#262d43;}
+button.navbtn:active{transform:scale(.97);}
+button.navbtn:disabled{opacity:.35;cursor:default;}
+button.navbtn.primary{
+  background:var(--yellow);
+  color:#1a1400;
+  border-color:var(--yellow);
+}
+button.navbtn.primary:hover{background:#ffd24d;}
+
+.progressbar{
+  height:4px;
+  background:var(--line);
+  border-radius:2px;
+  overflow:hidden;
+  margin:0 26px;
+  flex-shrink:0;
+}
+.progressbar-fill{
+  height:100%;
+  background:var(--yellow);
+  transition:width .25s ease;
+}
+
+/* ---- quiz ---- */
+.qopt{
+  display:block;
+  width:100%;
+  text-align:left;
+  background:var(--panel2);
+  border:1px solid var(--line);
+  color:var(--ink);
+  border-radius:9px;
+  padding:12px 14px;
+  font-size:14px;
+  margin-bottom:9px;
+  cursor:pointer;
+  font-family:inherit;
+}
+.qopt:hover{border-color:var(--yellow);}
+.qopt.correct{background:rgba(120,190,110,.16); border-color:#78be6e; color:#cdeec6;}
+.qopt.wrong{background:rgba(226,64,47,.16); border-color:var(--red); color:#ffcfc7;}
+.qopt:disabled{cursor:default;}
+.qfeedback{
+  font-size:13px;
+  color:var(--sub);
+  min-height:18px;
+  margin-top:2px;
+}
+
+.results{
+  text-align:center;
+  padding:30px 10px;
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  align-items:center;
+  justify-content:center;
+  flex:1;
+}
+.score{
+  font-family:'Oswald',sans-serif;
+  font-size:56px;
+  font-weight:700;
+  color:var(--yellow);
+  line-height:1;
+}
+.verdict{
+  font-size:15px;
+  color:var(--ink);
+  max-width:340px;
+  line-height:1.5;
+}
+.small{
+  font-size:12px;
+  color:var(--sub);
+  max-width:340px;
+  line-height:1.5;
+}
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="stripe"></div>
+  <div class="card" id="card"></div>
+</div>
+
+<script>
+const slides = [
+  {
+    kind: 'intro',
+    title: "Curso de Ética y Cumplimiento",
+    welcome: "Bienvenido al nuevo curso de Ética y Cumplimiento de #AirbusHuelga para directivos, RRHH, mandos intermedios, ministros y CEOs.",
+    objective: "Objetivo: al terminar serás capaz de distinguir entre proclamar un valor y aplicarlo en situaciones reales.",
+    duration: "Tiempo en finalizar el curso: lo que tardes en encontrar la letra pequeña.",
+    tag: "SÁTIRA \u00b7 CRÍTICA LABORAL \u00b7 NO OFICIAL",
+  },
+
+];
+
+
+const quiz = [
+  {
+    q: "Un colectivo ejerce legalmente su derecho de huelga. ¿Qué encaja mejor con una cultura de DIÁLOGO SOCIAL?",
+    options: ["Escuchar, negociar de buena fe y buscar una solución.", "Negociar únicamente cuando desaparezca la huelga.", "Explicar que determinados proyectos podrían terminar en otros lugares.", "Crear tantos foros como sean necesarios hasta encontrar uno más cómodo."],
+    correct: 0,
+  },
+  {
+    q: "\u201CEs esencial que en Airbus nos rijamos por los más altos estándares éticos en todo lo que hacemos.\u201D<br>Código de Conducta Airbus, Mensaje del CEO<br><br>¿Cuál es la mejor prueba de que una organización cumple sus VALORES?",
+    options: ["Que sus decisiones sean coherentes con ellos cuando existe un conflicto.", "Que los valores aparezcan en la intranet.", "Que todo el mundo complete el curso anual.", "Que el curso tenga un avatar muy convincente."],
+    correct: 0,
+  },
+  {
+    q: "\u00abAirbus se compromete a cumplir las convenciones de la Organización Internacional del Trabajo y reconoce los derechos de representación de acuerdo con la legislación nacional.\u00bb<br><br>¿Qué significa actuar conforme a la LEGISLACIÓN NACIONAL?",
+    options: ["Aplicarla y respetar los órganos y derechos que reconoce.", "Aplicarla salvo que haya huelga.", "Aplicarla salvo que Legal encuentre una interpretación creativa."],
+    correct: 0,
+  },
+  {
+    q: "Hay sindicatos con posiciones distintas. ¿Qué conducta encaja mejor con el Código de RELACIONES LABORALES?",
+    options: ["Respetar su legitimación y evitar interferir o favorecer a unos frente a otros.", "Elegir al sindicato que más le guste a la dirección.", "Elegir al interlocutor cuya posición resulte más cómoda.", "Influir para que los trabajadores apoyen una representación concreta."],
+    correct: 0,
+  },
+  {
+    q: "Durante un conflicto, ¿qué mensaje demuestra mejor RESPETO?",
+    options: ["Tenemos posiciones diferentes; continuemos dialogando.", "La continuidad del conflicto puede afectar a futuras decisiones empresariales.", "Hablaremos cuando se suspenda la huelga.", "Respect es uno de nuestros valores fundamentales."],
+    correct: 0,
+  },
+  {
+    q: "INTEGRIDAD<br><br>Una comunicación promete \u201Cvinculación al IPC real y recuperación del poder adquisitivo\u201D, pero existen límites que pueden impedir compensar toda la inflación efectiva y que pueden limitar y retrasar la recuperación hasta 2030, perdiendo por tanto el salario no actualizado correspondiente a ese periodo.<br><br>¿Qué debería hacer una comunicación ÍNTEGRA?",
+    options: ["Explicar claramente los límites junto a la promesa, y que la promesa sea 100% cierta.", "Poner la promesa en grande y los límites donde haya que buscarlos.", "Repetir la promesa hasta que resulte familiar.", "Evitar números: podrían generar preguntas."],
+    correct: 0,
+  },
+  {
+    q: "¿Puede una empresa financiar o favorecer a un sindicato frente a otro?",
+    options: ["Sí, es libertad de empresa", "No, es un acto de injerencia prohibido", "Solo durante huelgas"],
+    correct: 1,
+  },
+  {
+    q: "¿Es legal amenazar con deslocalizar producción para forzar el fin de una huelga?",
+    options: ["Sí, es libertad de empresa", "No, puede vulnerar el derecho de huelga", "Solo si se avisa antes"],
+    correct: 1,
+  },
+  {
+    q: "¿Desde cuándo están obligados a negociar el Comité de huelga y la empresa?",
+    options: ["Solo si la empresa quiere", "Desde el preaviso y durante toda la huelga", "Solo el último día"],
+    correct: 1,
+  },
+  {
+    q: "¿Pueden los huelguistas hacer publicidad pacífica de la huelga?",
+    options: ["No, está prohibido", "Sí, y también recoger fondos sin coacción", "Solo con permiso previo de la empresa"],
+    correct: 1,
+  },
+  {
+    q: "CASO PRÁCTICO \u2014 DOS MESAS, \u00bfUNA SOLA NEGOCIACIÓN?<br><br>La huelga continúa y existe un Comité de Huelga. En el SIMA se abren dos procedimientos paralelos: el 394, con otras organizaciones sindicales, y el 396, con el Comité de Huelga. En la mesa del Comité de Huelga, la empresa condiciona la continuación de la negociación a que se pause la huelga. Al no aceptarse esa condición, la negociación termina sin acuerdo. Mientras tanto, la otra mesa continúa negociando materias relacionadas con el mismo conflicto, hasta desembocar en una propuesta para ponerle fin. \u00bfQué riesgo jurídico debería haberse evaluado?",
+    options: [
+      "Ninguno. Abrir dos números de expediente diferentes convierte las negociaciones en jurídicamente independientes.",
+      "Que las dos salas del SIMA estuvieran demasiado cerca.",
+      "Que mantener una vía negociadora alternativa mientras se condiciona la negociación con el Comité de Huelga a la suspensión de la huelga pudiera interpretarse como una forma de puentear su función negociadora y reducir la presión legítima de la huelga.",
+      "Que alguien se equivocara y entrase en la mesa 394 en lugar de la 396.",
+    ],
+    correct: 2,
+  },
+  {
+    q: "CASO PRÁCTICO \u2014 \u00bfTÚ TAMBIÉN, MINISTRO?<br><br>La huelga continúa y existe un Comité de huelga. La empresa anuncia que reunirá a todos los sindicatos en el Ministerio para presentar una propuesta que se someterá directamente a referéndum. Finalmente, no todos participan en la misma reunión: según el relato disponible sobre la reunión, ÚTIL no fue invitado porque \u00abno tenían claro que fuera a firmar\u00bb, mientras que del resto \u00absabían antes de la reunión su intención de firmar\u00bb.<br><span class=\"cite\">Fuente: relato/documento de asistentes a la reunión de 4 de septiembre de 2026.</span><br><br>¿Qué riesgo jurídico debería haberse evaluado antes de continuar?",
+    options: [
+      "Ninguno. Si después hay referéndum, todo lo anterior deja de importar.",
+      "Que la sala fuera demasiado pequeña.",
+      "Que seleccionar interlocutores según su predisposición a firmar, apartando al Comité de huelga mientras la huelga continúa, pudiera interpretarse como un intento de puentear su función negociadora y neutralizar la huelga.",
+      "Que la fotografía no incluyera a todos.",
+    ],
+    correct: 2,
+  },
+  {
+    q: "CASO PRÁCTICO \u2014 REFERÉNDUM<br><br>La huelga continúa. El comité reclama formalmente que se negocie con él. Días después se presenta una propuesta destinada directamente a referéndum en una reunión de la que quedan fuera organizaciones del comité. ¿Qué debería comprobar Compliance?",
+    options: [
+      "Si el referéndum tiene suficientes urnas.",
+      "Si el procedimiento está siendo utilizado para sustituir la negociación con el Comité de huelga y privar de efectividad a la huelga.",
+      "Si Comunicación ya tiene preparada la fotografía.",
+      "Nada: un referéndum convierte automáticamente en irrelevante todo lo ocurrido anteriormente.",
+    ],
+    correct: 1,
+  },
+  {
+    q: "CASO HIPOTÉTICO \u2014 INDEPENDENCIA SINDICAL<br><br>La Dirección considera fundamental mantener la paz social. Un sindicato mantiene desde hace años una relación especialmente fluida con la empresa. Entre la plantilla circulan rumores sobre plazas de aparcamiento asignadas, familiares colocados en taller, un número extraordinario de liberados y expectativas de futuras prejubilaciones.<br><br><i>(En este supuesto ficticio circulan rumores sobre determinadas ventajas concedidas a sindicatos. El ejercicio no afirma que tales ventajas existan ni que ninguna organización real las haya recibido.)</i><br><br>¿Qué debería hacer Compliance?",
+    options: [
+      "Ignorarlo. Mientras haya paz social, Compliance también merece un poco de paz.",
+      "Preguntar únicamente al sindicato mencionado en los rumores. Si responde \u00abtodo correcto\u00bb, cerrar la investigación.",
+      "Comprobar objetivamente si esas ventajas existen, quién las concede, con qué criterios, si otros sindicatos reciben el mismo trato y si existe alguna relación con la actuación sindical.",
+      "Reservar una mesa para la siguiente mariscada mientras se investiga.",
+    ],
+    correct: 2,
+  },
+  {
+    q: "DETECTA LA BANDERA ROJA \u2014 \u00bfCuál de estas situaciones justificaría que Compliance investigase?",
+    options: [
+      "Cena de Navidad con marisco.",
+      "Determinados representantes sindicales reciben plazas reservadas porque existe un criterio general y documentado para sus funciones.",
+      "Un familiar de un representante sindical consigue un puesto después de superar el mismo proceso de selección que los demás.",
+      "La empresa concede ventajas no justificadas a determinados sindicatos y existen indicios de que espera a cambio moderación sindical, ausencia de movilizaciones o apoyo a determinadas propuestas empresariales.",
+    ],
+    correct: 3,
+  },
+
+];
+
+let idx = 0;               // slide index, 0..slides.length-1, then slides.length = quiz start
+let qIdx = 0;
+let score = 0;
+let answered = false;
+const TOTAL_STEPS = slides.length + quiz.length;
+
+const card = document.getElementById('card');
+
+function render(){
+  if (idx < slides.length){
+    renderSlide(slides[idx]);
+  } else if (idx < slides.length + quiz.length){
+    renderQuiz(quiz[idx - slides.length]);
+  } else {
+    renderResults();
+  }
+}
+
+function renderSlide(s){
+  if (s.kind === 'intro'){
+    card.innerHTML = `
+      <div class="top">
+        <span class="eyebrow">BIENVENIDA</span>
+        <span class="counter">${idx+1} / ${slides.length}</span>
+      </div>
+      <div class="progressbar"><div class="progressbar-fill" style="width:${progressPct()}%"></div></div>
+      <div class="body intro-body">
+        <h1>${s.title}</h1>
+        <p class="intro-p">${s.welcome}</p>
+        <p class="intro-p intro-objective">${s.objective}</p>
+        ${s.duration ? `<p class="intro-p">${s.duration}</p>` : ''}
+        ${s.disclaimer ? `<p class="fine-note">${s.disclaimer}</p>` : ''}
+        ${s.tag ? `<p class="intro-tag">${s.tag}</p>` : ''}
+      </div>
+      <div class="nav">
+        <button class="navbtn" id="prevBtn" disabled>← Atrás</button>
+        <button class="navbtn primary" id="nextBtn">Empezar →</button>
+      </div>
+    `;
+    document.getElementById('nextBtn').onclick = ()=>{ idx++; render(); };
+    return;
+  }
+  if (s.kind === 'caso'){
+    card.innerHTML = `
+      <div class="top">
+        <span class="eyebrow" style="color:var(--red)">${s.dateLabel}</span>
+        <span class="counter">${idx+1} / ${slides.length}</span>
+      </div>
+      <div class="progressbar"><div class="progressbar-fill" style="width:${progressPct()}%"></div></div>
+      <div class="body">
+        <h1>${s.title}</h1>
+        <div class="block block-owncode">
+          <div class="block-label">SITUACIÓN</div>
+          ${s.situacion.map(p=>`<p class="multi-quote">${p}</p>`).join('')}
+          ${s.fuente ? `<span class="cite">${s.fuente}</span>` : ''}
+        </div>
+        ${s.porque_titulo ? `<div class="block block-ban">
+          <div class="block-label">${s.porque_titulo}</div>
+          <p>${s.porque_texto}${s.fuente ? `<span class="cite">${s.fuente}</span>` : ''}</p>
+        </div>` : ''}
+        <div class="block block-law">
+          <div class="block-label">PREGUNTA DE COMPLIANCE</div>
+          <p style="margin-bottom:10px;">${s.pregunta}</p>
+          <div class="caso-options">
+            ${s.opciones.map(o=>`<div class="caso-option${o.letra===s.correcta?' correct':''}">${o.letra===s.correcta?'✅':'◻️'} <b>${o.letra})</b> ${o.texto}</div>`).join('')}
+          </div>
+        </div>
+        <div class="block block-owncode">
+          <div class="block-label">POR QUÉ ES LA RESPUESTA CORRECTA</div>
+          ${s.fundamentos.map(f=>`<p class="multi-quote">${f.quote}<span class="cite">${f.cite}</span></p>`).join('')}
+        </div>
+        <p class="caso-cierre">${s.cierre.join('<br>')}</p>
+      </div>
+      <div class="nav">
+        <button class="navbtn" id="prevBtn" ${idx===0?'disabled':''}>← Atrás</button>
+        <button class="navbtn primary" id="nextBtn">${idx===slides.length-1?'Ir al test →':'Siguiente →'}</button>
+      </div>
+    `;
+    document.getElementById('prevBtn').onclick = ()=>{ idx--; render(); };
+    document.getElementById('nextBtn').onclick = ()=>{ idx++; render(); };
+    return;
+  }
+  const isCode = s.kind === 'code';
+  const isValue = s.kind === 'value';
+  let eyebrow, eyebrowColor, labelLaw, labelBan;
+  if (isCode){
+    eyebrow = 'LO QUE DICE EL CÓDIGO DE CONDUCTA DE AIRBUS';
+    eyebrowColor = 'var(--blue3)';
+    labelLaw = 'EL CÓDIGO DE CONDUCTA DICE';
+    labelBan = s.banLabel || 'NO SE DEBE HACER';
+  } else if (isValue){
+    eyebrow = 'LO QUE DICEN LOS VALORES DE AIRBUS';
+    eyebrowColor = 'var(--purple3)';
+    labelLaw = 'EL VALOR DICE';
+    labelBan = 'A PRUEBA';
+  } else {
+    eyebrow = 'LO QUE DICE LA LEY';
+    eyebrowColor = 'var(--yellow)';
+    labelLaw = 'LA LEY DICE';
+    labelBan = 'NO SE PUEDE HACER';
+  }
+  const blockClass = isCode ? 'block-owncode' : (isValue ? 'block-value' : 'block-law');
+  const lawTopBlock = s.lawItems
+    ? `<div class="block ${blockClass}">
+        <div class="block-label">${labelLaw}</div>
+        ${s.lawItems.map(it => `<p class="multi-quote">${it.quote}<span class="cite">${it.cite}</span></p>`).join('')}
+      </div>`
+    : (s.jurisItems || !s.law ? '' : `<div class="block ${blockClass}">
+        <div class="block-label">${labelLaw}</div>
+        <p>${s.law}${s.lawCite ? `<span class="cite">${s.lawCite}</span>` : ''}</p>
+      </div>`);
+  const jurisBlock = s.jurisItems ? `<div class="block ${blockClass}">
+        <div class="block-label">LA JURISPRUDENCIA DICE</div>
+        ${s.jurisItems.map(it => `<p class="multi-quote">${it.quote}<span class="cite">${it.cite}</span></p>`).join('')}
+      </div>` : '';
+  const lawBlockHTML = lawTopBlock + jurisBlock;
+  card.innerHTML = `
+    <div class="top">
+      <span class="eyebrow" style="color:${eyebrowColor}">${eyebrow}</span>
+      <span class="counter">${idx+1} / ${slides.length}</span>
+    </div>
+    <div class="progressbar"><div class="progressbar-fill" style="width:${progressPct()}%"></div></div>
+    <div class="body">
+      <h1>${s.title}</h1>
+      ${lawBlockHTML}
+      ${(s.ban || s.banItems) ? `<div class="block block-ban">
+        <div class="block-label">${labelBan}</div>
+        ${s.banItems ? s.banItems.map(p=>`<p class="multi-quote">${p}</p>`).join('') : `<p>${s.ban}</p>`}
+      </div>` : ''}
+      ${s.note ? `<p class="fine-note">${s.note}</p>` : ''}
+
+    </div>
+    <div class="nav">
+      <button class="navbtn" id="prevBtn" ${idx===0?'disabled':''}>← Atrás</button>
+      <button class="navbtn primary" id="nextBtn">${idx===slides.length-1?'Ir al test →':'Siguiente →'}</button>
+    </div>
+  `;
+  document.getElementById('prevBtn').onclick = ()=>{ idx--; render(); };
+  document.getElementById('nextBtn').onclick = ()=>{ idx++; render(); };
+}
+
+function renderQuiz(item){
+  answered = false;
+  const n = idx - slides.length;
+  card.innerHTML = `
+    <div class="top">
+      <span class="eyebrow" style="color:var(--red)">TEST FINAL</span>
+      <span class="counter">Pregunta ${n+1} / ${quiz.length}</span>
+    </div>
+    <div class="progressbar"><div class="progressbar-fill" style="width:${progressPct()}%"></div></div>
+    <div class="body">
+      <h1 class="qh1">${item.q}</h1>
+      <div id="opts">
+        ${item.options.map((o,i)=>`<button class="qopt" data-i="${i}">${o}</button>`).join('')}
+      </div>
+      <div class="qfeedback" id="feedback"></div>
+    </div>
+    <div class="nav">
+      <button class="navbtn" id="prevBtn">← Atrás</button>
+      <button class="navbtn primary" id="nextBtn" disabled>${n===quiz.length-1?'Ver resultado →':'Siguiente →'}</button>
+    </div>
+  `;
+  document.getElementById('prevBtn').onclick = ()=>{ idx--; render(); };
+  document.getElementById('nextBtn').onclick = ()=>{ idx++; render(); };
+
+  document.querySelectorAll('.qopt').forEach(btn=>{
+    btn.onclick = ()=>{
+      if (answered) return;
+      answered = true;
+      const chosen = parseInt(btn.getAttribute('data-i'));
+      document.querySelectorAll('.qopt').forEach((b,i)=>{
+        b.disabled = true;
+        if (i === item.correct) b.classList.add('correct');
+        else if (i === chosen) b.classList.add('wrong');
+      });
+      const fb = document.getElementById('feedback');
+      let msg;
+      if (chosen === item.correct){
+        score++;
+        msg = "Correcto.";
+      } else {
+        msg = "No es correcto — se ha marcado la respuesta correcta.";
+      }
+      if (item.feedback) msg += '<br><br>' + item.feedback.replace(/\n/g,'<br>');
+      fb.innerHTML = msg;
+      document.getElementById('nextBtn').disabled = false;
+    };
+  });
+}
+
+function renderResults(){
+  const pct = (score/quiz.length)*100;
+  let verdict;
+  if (pct >= 100){
+    verdict = "\u00abEnhorabuena. Ya puedes explicarle el derecho de huelga al departamento jurídico.\u00bb";
+  } else if (pct >= 80){
+    verdict = "\u00abExcelente. RRHH quiere hablar contigo. Tranquilo, solo es una reunión informativa.\u00bb";
+  } else if (pct >= 60){
+    verdict = "\u00abAprobado. Ya sabes suficiente para que no te inviten a la próxima mesa de negociación.\u00bb";
+  } else if (pct >= 40){
+    verdict = "\u00abNecesitas repasar. Aún tienes posibilidades de llegar a directivo.\u00bb";
+  } else if (pct >= 20){
+    verdict = "\u00abBuen perfil para RRHH. Recuerda: si una mesa no funciona, siempre puedes abrir otra.\u00bb";
+  } else {
+    verdict = "\u00ab\u00a1Enhorabuena! Tu candidatura para CEO ha sido preseleccionada.\u00bb";
+  }
+  card.innerHTML = `
+    <div class="top">
+      <span class="eyebrow">RESULTADO</span>
+      <span class="counter"></span>
+    </div>
+    <div class="progressbar"><div class="progressbar-fill" style="width:100%"></div></div>
+    <div class="results">
+      <div class="score">${score}/${quiz.length}</div>
+      <div class="verdict">${verdict}</div>
+      <p class="fine-note">Este curso constituye una obra satírica y de propaganda vinculada al conflicto laboral y al ejercicio del derecho de huelga. No constituye formación oficial de Airbus ni asesoramiento jurídico. Distingue entre hechos, opiniones y valoraciones jurídicas. Las referencias a posibles vulneraciones legales expresan valoraciones o riesgos jurídicos y no implican que exista una infracción declarada judicialmente. Los casos identificados como hipotéticos o satíricos no constituyen afirmaciones de hechos respecto de personas u organizaciones concretas.</p>
+    </div>
+    <div class="nav">
+      <button class="navbtn" id="restartBtn">↺ Repetir curso</button>
+    </div>
+  `;
+  document.getElementById('restartBtn').onclick = ()=>{ idx=0; score=0; render(); };
+}
+
+function progressPct(){
+  return Math.round(((idx+1)/TOTAL_STEPS)*100);
+}
+
+render();
+</script>
+
+</body>
+</html>
